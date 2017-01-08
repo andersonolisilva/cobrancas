@@ -6,7 +6,7 @@ $('#confirmacaoExclusaoModal').on('show.bs.modal', function (event) {
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this);
   var form = modal.find('form');
-  var action = form.attr('action');
+  var action = form.data('url-base');
   if(!action.endsWith('/')){
 	  action += '/';
   }
