@@ -8,31 +8,34 @@
 </head>
 
 <section layout:fragment="conteudo">
-	<form class="form-horizontal" method="post" action="/titulos">
+	<form class="form-horizontal" method="post" action="/titulos"
+		th:object="${titulo}">
 		<div class="alert alert-success"
 			th:if="${!#strings.isEmpty(mensagem)}">
 			<span th:text="${mensagem}"></span>
 		</div>
+		
+		<div layout:include="Mensagem"></div>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="clearfix">
 					<h3 class="panel-title aw-titulo-panel">Novo Título</h3>
-					<a class="btn btn-link aw-link-panel"
-						href="/titulos">Voltar para a pesquisa</a>
+					<a class="btn btn-link aw-link-panel" href="/titulos">Voltar
+						para a pesquisa</a>
 				</div>
 			</div>
 		</div>
 
 		<div class="panel-body">
-			<div class="form-group">
+			<div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? 'has-error'">
 				<label for="descricao" class="col-sm-2 control-label">Descrição</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="descricao"
 						name="descricao" placeholder="Descrição do título" />
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group" th:classappend="${#fields.hasErrors('dataVencimento')} ? 'has-error'">
 				<label for="dataVencimento" class="col-sm-2 control-label">Data
 					de vencimento</label>
 				<div class="col-sm-2">
@@ -40,14 +43,14 @@
 						name="dataVencimento" placeholder="Data de vencimento" />
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? 'has-error'">
 				<label for="valor" class="col-sm-2 control-label">Valor</label>
 				<div class="col-sm-2">
 					<input type="text" class="form-control" id="valor" name="valor"
 						placeholder="Valor do título" />
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group" th:classappend="${#fields.hasErrors('status')} ? 'has-error'">
 				<label for="status" class="col-sm-2 control-label">Status</label>
 				<div class="col-sm-2">
 					<select class="form-control" name="status">
