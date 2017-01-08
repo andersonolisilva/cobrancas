@@ -3,8 +3,7 @@ package com.algaworks.model;
 public enum StatusTitulo {
 
 	PENDENTE("Pendente"),
-	RECEBIDO("Recebido"),
-	CANCELADO("Cancelado");
+	RECEBIDO("Recebido");
 	
 	private String descricao;
 	

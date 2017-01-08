@@ -89,4 +89,7 @@ public class Titulo {
 		return true;
 	}
 	
+	public boolean isPendente(){
+		return this.getStatus() == StatusTitulo.PENDENTE;
+	}
 }
