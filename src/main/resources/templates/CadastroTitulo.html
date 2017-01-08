@@ -32,7 +32,7 @@
 				<label for="descricao" class="col-sm-2 control-label">Descrição</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="descricao"
-						name="descricao" placeholder="Descrição do título" />
+						placeholder="Descrição do título" th:field="*{descricao}"/>
 				</div>
 			</div>
 			<div class="form-group" th:classappend="${#fields.hasErrors('dataVencimento')} ? 'has-error'">
@@ -40,14 +40,14 @@
 					de vencimento</label>
 				<div class="col-sm-2">
 					<input type="text" class="form-control" id="dataVencimento"
-						name="dataVencimento" placeholder="Data de vencimento" />
+						placeholder="Data de vencimento" th:field="*{dataVencimento}"/>
 				</div>
 			</div>
 			<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? 'has-error'">
 				<label for="valor" class="col-sm-2 control-label">Valor</label>
 				<div class="col-sm-2">
-					<input type="text" class="form-control" id="valor" name="valor"
-						placeholder="Valor do título" />
+					<input type="text" class="form-control" id="valor"
+						placeholder="Valor do título" th:field="*{valor}"/>
 				</div>
 			</div>
 			<div class="form-group" th:classappend="${#fields.hasErrors('status')} ? 'has-error'">

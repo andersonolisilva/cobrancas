@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.model.StatusTitulo;
 import com.algaworks.model.Titulo;
@@ -22,28 +23,24 @@ public class TituloController {
 
 	@Autowired
 	Titulos titulos;
-	
+
 	@RequestMapping("/novo")
 	public ModelAndView novo(){
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject(new Titulo());
 		return mv;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(@Validated Titulo titulo, Errors erros){
-		
-		ModelAndView mv = new ModelAndView("CadastroTitulo");
-		
+	public String salvar(@Validated Titulo titulo, Errors erros, RedirectAttributes attributes){
 		if (erros.hasErrors()){
-			return mv;
+			return "CadastroTitulo";
 		}
-		
 		titulos.save(titulo);
-		mv.addObject("mensagem","Título salvo com sucesso");
-		return mv;
+		attributes.addFlashAttribute("mensagem","Título salvo com sucesso");
+		return "redirect:/titulos/novo";
 	}
-	
+
 	@RequestMapping
 	public ModelAndView pesquisar(){
 		List<Titulo> listaTitulos = titulos.findAll();
@@ -51,10 +48,10 @@ public class TituloController {
 		mv.addObject("titulos", listaTitulos);
 		return mv;
 	}
-	
+
 	@ModelAttribute("todosStatusTitulo")
 	public List<StatusTitulo> todosStatusTitulo(){
 		return Arrays.asList(StatusTitulo.values());
 	}
-	
+
 }
