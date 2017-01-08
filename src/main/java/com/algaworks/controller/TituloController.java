@@ -51,17 +51,24 @@ public class TituloController {
 		mv.addObject("titulos", listaTitulos);
 		return mv;
 	}
-
-	@ModelAttribute("todosStatusTitulo")
-	public List<StatusTitulo> todosStatusTitulo(){
-		return Arrays.asList(StatusTitulo.values());
-	}
 	
 	@RequestMapping("{codigo}")
 	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo){
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(titulo);
 		return mv;		
+	}
+	
+	@RequestMapping(value="{codigo}",method = RequestMethod.DELETE)
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes){
+		titulos.delete(codigo);
+		attributes.addFlashAttribute("mensagem","Título excluído com sucesso.");
+		return "redirect:/titulos";
+	}
+	
+	@ModelAttribute("todosStatusTitulo")
+	public List<StatusTitulo> todosStatusTitulo(){
+		return Arrays.asList(StatusTitulo.values());
 	}
 
 }

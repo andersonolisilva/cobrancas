@@ -10,12 +10,9 @@
 <section layout:fragment="conteudo">
 	<form class="form-horizontal" method="post" action="/titulos"
 		th:object="${titulo}">
-		<div class="alert alert-success"
-			th:if="${!#strings.isEmpty(mensagem)}">
-			<span th:text="${mensagem}"></span>
-		</div>
 		
-		<div layout:include="Mensagem"></div>
+		<div layout:include="MensagemErro"></div>
+		<div layout:include="MensagemGeral"></div>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
