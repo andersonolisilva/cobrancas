@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +25,7 @@ public class TituloController {
 
 	@Autowired
 	Titulos titulos;
-	
+
 	private static final String CADASTRO_VIEW = "CadastroTitulo";
 
 	@RequestMapping("/novo")
@@ -39,9 +40,14 @@ public class TituloController {
 		if (erros.hasErrors()){
 			return CADASTRO_VIEW;
 		}
-		titulos.save(titulo);
-		attributes.addFlashAttribute("mensagem","Título salvo com sucesso");
-		return "redirect:/titulos/novo";
+		try{
+			titulos.save(titulo);
+			attributes.addFlashAttribute("mensagem","Título salvo com sucesso");
+			return "redirect:/titulos/novo";
+		}catch(DataIntegrityViolationException e){
+			erros.rejectValue("dataVencimento",null,"Formato de data inválido.");
+			return CADASTRO_VIEW;
+		}
 	}
 
 	@RequestMapping
@@ -51,21 +57,21 @@ public class TituloController {
 		mv.addObject("titulos", listaTitulos);
 		return mv;
 	}
-	
+
 	@RequestMapping("{codigo}")
 	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo){
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(titulo);
 		return mv;		
 	}
-	
+
 	@RequestMapping(value="{codigo}",method = RequestMethod.DELETE)
 	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes){
 		titulos.delete(codigo);
 		attributes.addFlashAttribute("mensagem","Título excluído com sucesso.");
 		return "redirect:/titulos";
 	}
-	
+
 	@ModelAttribute("todosStatusTitulo")
 	public List<StatusTitulo> todosStatusTitulo(){
 		return Arrays.asList(StatusTitulo.values());
