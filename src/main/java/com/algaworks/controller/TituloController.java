@@ -75,6 +75,7 @@ public class TituloController {
 		return "redirect:/titulos";
 	}
 
+
 	@ModelAttribute("todosStatusTitulo")
 	public List<StatusTitulo> todosStatusTitulo(){
 		return Arrays.asList(StatusTitulo.values());
