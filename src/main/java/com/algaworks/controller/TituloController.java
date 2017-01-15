@@ -18,15 +18,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.algaworks.model.StatusTitulo;
 import com.algaworks.model.Titulo;
 import com.algaworks.repository.Titulos;
+import com.algaworks.repository.filter.TituloFilter;
 import com.algaworks.service.CadastroTituloService;
 
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
-
-	@Autowired
-	Titulos titulos;
-
+	
 	@Autowired
 	CadastroTituloService cadastroTituloService;
 	
@@ -55,10 +53,10 @@ public class TituloController {
 	}
 
 	@RequestMapping
-	public ModelAndView pesquisar(){
-		List<Titulo> listaTitulos = titulos.findAll();
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro){
+		List<Titulo> todosTitulos = cadastroTituloService.pesquisar(filtro);
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
-		mv.addObject("titulos", listaTitulos);
+		mv.addObject("titulos", todosTitulos );
 		return mv;
 	}
 
