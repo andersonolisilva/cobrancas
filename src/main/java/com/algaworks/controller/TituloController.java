@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.model.StatusTitulo;
 import com.algaworks.model.Titulo;
-import com.algaworks.repository.Titulos;
 import com.algaworks.repository.filter.TituloFilter;
 import com.algaworks.service.CadastroTituloService;
 
